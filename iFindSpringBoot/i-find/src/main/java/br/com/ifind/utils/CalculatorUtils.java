@@ -1,6 +1,6 @@
 package br.com.ifind.utils;
 
-import br.com.ifind.exceptions.UnsuportedMathOperationException;
+import br.com.ifind.exceptions.ResourceNotFoundException;
 
 public class CalculatorUtils {
 	
@@ -41,7 +41,7 @@ public class CalculatorUtils {
 		checkIsNumeric(numberTwo);
 		
 		if(convertToDouble(numberTwo) == 0.0) {
-			throw new UnsuportedMathOperationException("Cannot divide by zero");
+			throw new ResourceNotFoundException("Cannot divide by zero");
 		}
 		
 		return convertToDouble(numberOne) / convertToDouble(numberTwo);
@@ -55,7 +55,7 @@ public class CalculatorUtils {
 	
 	public static void checkIsNumeric(String strNumber) {
 		if(strNumber == null || !strNumber.replaceAll(",", ".").matches("[-+]?[0-9]*\\.?[0-9]+")) {
-			throw new UnsuportedMathOperationException("Please set a numeric value");
+			throw new ResourceNotFoundException("Please set a numeric value");
 		}
 	}
 	
