@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import br.com.ifind.controllers.PersonController;
 import br.com.ifind.data.vo.v1.PersonVO;
 import br.com.ifind.data.vo.v2.PersonVOV2;
+import br.com.ifind.exceptions.RequiredObjectIsNullException;
 import br.com.ifind.exceptions.ResourceNotFoundException;
 import br.com.ifind.mapper.DozerMapper;
 import br.com.ifind.mapper.custom.PersonMapper;
@@ -60,6 +61,9 @@ public class PersonServices {
 	
 	public PersonVO create(PersonVO person) throws Exception {
 		logger.info("Creating person!");
+		
+		if(person == null) throw new RequiredObjectIsNullException();
+		
 		var entity = DozerMapper.parseObject(person, Person.class);
 		var vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
 		vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
@@ -75,6 +79,8 @@ public class PersonServices {
 	
 	public PersonVO update(PersonVO person) throws Exception {
 		logger.info("Updating person!");
+		
+		if(person == null) throw new RequiredObjectIsNullException();
 		
 		var entity = repository.findById(person.getKey()).orElseThrow(() -> new ResourceNotFoundException("No records found for this id"));
 		
