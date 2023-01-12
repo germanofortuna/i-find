@@ -1,13 +1,16 @@
 package br.com.ifind.unittests.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import br.com.ifind.unittests.mapper.mocks.MockPerson;
+import br.com.ifind.data.vo.v1.BookVO;
 import br.com.ifind.data.vo.v1.PersonVO;
 import br.com.ifind.mapper.DozerMapper;
 import br.com.ifind.model.Person;
@@ -21,6 +24,17 @@ public class DozerConverterTest {
         inputObject = new MockPerson();
     }
 
+    @Test
+    public void parseEntityToBookVOTest() {
+        BookVO output = DozerMapper.parseObject(inputObject.mockEntity(), BookVO.class);
+        assertEquals(Long.valueOf(0L), output.getKey());
+        assertTrue(output.toString().contains("links: [</api/book/v1/0>;rel=\"self\"]"));
+		assertEquals("Autor0", output.getAuthor());
+		assertEquals(new Date(), output.getLaunchDate());
+		assertEquals(0.0, output.getPrice());
+		assertEquals("Title0", output.getTitle());
+    }
+    
     @Test
     public void parseEntityToVOTest() {
         PersonVO output = DozerMapper.parseObject(inputObject.mockEntity(), PersonVO.class);
