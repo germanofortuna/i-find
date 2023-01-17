@@ -2,7 +2,7 @@ package br.com.ifind.config;
  
 import java.util.HashMap;
 import java.util.Map;
- 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder.SecretKeyFactoryAlgorithm;
 import org.springframework.security.web.SecurityFilterChain;
- 
+
 import br.com.ifind.security.jwt.JwtConfigurer;
 import br.com.ifind.security.jwt.JwtTokenProvider;
  
@@ -31,7 +31,6 @@ public class SecurityConfig {
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		Map<String, PasswordEncoder> encoders = new HashMap<>();
-				
 		Pbkdf2PasswordEncoder pbkdf2Encoder = new Pbkdf2PasswordEncoder("", 8, 185000, SecretKeyFactoryAlgorithm.PBKDF2WithHmacSHA256);
 		encoders.put("pbkdf2", pbkdf2Encoder);
 		DelegatingPasswordEncoder passwordEncoder = new DelegatingPasswordEncoder("pbkdf2", encoders);
@@ -66,9 +65,9 @@ public class SecurityConfig {
                 )
                 .cors()
                 .and()
-                .apply(new JwtConfigurer(tokenProvider))
+                	.apply(new JwtConfigurer(tokenProvider))
                 .and()
-                .build();
+                	.build();
  
     }
 }

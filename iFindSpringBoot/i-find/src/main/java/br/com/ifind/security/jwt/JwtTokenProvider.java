@@ -64,7 +64,8 @@ public class JwtTokenProvider {
 	}
 	
 	private String getAccessToken(String username, List<String> roles, Date now, Date validity) {
-		String issuerUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString(); // pega aurl do servidor
+		String issuerUrl = ServletUriComponentsBuilder
+				.fromCurrentContextPath().build().toUriString(); // pega aurl do servidor
 		return JWT.create()
 				.withClaim("roles", roles)
 				.withIssuedAt(now)
@@ -96,7 +97,8 @@ public class JwtTokenProvider {
 	private DecodedJWT decodedToken(String token) {
 		Algorithm alg = Algorithm.HMAC256(secretKey.getBytes());
 		JWTVerifier verifier = JWT.require(alg).build();
-		return verifier.verify(token);
+		DecodedJWT decodedJWT = verifier.verify(token);
+		return decodedJWT;
 	}
 	
 	public String resolveToken(HttpServletRequest req) {

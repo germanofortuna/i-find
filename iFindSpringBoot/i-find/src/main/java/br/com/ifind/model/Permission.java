@@ -23,14 +23,14 @@ private static final long serialVersionUID = 1L;
 	private Long id;
 	
 	@Column
-	private String descripiton;
+	private String description;
 	
 	public Permission() {
 	}
 
 	@Override
 	public String getAuthority() {
-		return this.descripiton;
+		return this.description;
 	}
 
 	public Long getId() {
@@ -41,21 +41,17 @@ private static final long serialVersionUID = 1L;
 		this.id = id;
 	}
 
-	public String getDescripiton() {
-		return descripiton;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescripiton(String descripiton) {
-		this.descripiton = descripiton;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(descripiton, id);
+		return Objects.hash(description, id);
 	}
 
 	@Override
@@ -67,6 +63,6 @@ private static final long serialVersionUID = 1L;
 		if (getClass() != obj.getClass())
 			return false;
 		Permission other = (Permission) obj;
-		return Objects.equals(descripiton, other.descripiton) && Objects.equals(id, other.id);
+		return Objects.equals(description, other.description) && Objects.equals(id, other.id);
 	}
 }
