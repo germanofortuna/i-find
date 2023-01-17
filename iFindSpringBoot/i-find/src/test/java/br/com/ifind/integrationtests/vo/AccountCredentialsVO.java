@@ -1,8 +1,11 @@
-package br.com.ifind.data.vo.v1.security;
+package br.com.ifind.integrationtests.vo;
 
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "AccountCredentialsVO")
 public class AccountCredentialsVO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -10,12 +13,12 @@ public class AccountCredentialsVO implements Serializable{
 	private String username;
 	private String password;
 	
-	public AccountCredentialsVO() {
-	}
-	
 	public AccountCredentialsVO(String username, String password) {
 		this.username = username;
 		this.password = password;
+	}
+	
+	AccountCredentialsVO() {
 	}
 
 	public String getUsername() {
