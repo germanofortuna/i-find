@@ -17,16 +17,12 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
 	@JsonProperty("id")
 	@Mapping("id") //mapeia o objeto
 	private Long key;
-	@JsonProperty("first_name")
 	private String firstName;
-	@JsonProperty("last_name")
 	private String lastName;
 	private String address;
 	private String gender;
 	
-	public PersonVO() {
-		super();
-	}
+	public PersonVO() {}
 
 	public String getFirstName() {
 		return firstName;
@@ -87,8 +83,10 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
 		this.key = key;
 	}
 
-	
-	
-	
+	@Override
+	public String toString() {
+		return "PersonVO [key=" + key + ", firstName=" + firstName + ", lastName=" + lastName + ", address=" + address
+				+ ", gender=" + gender + "]";
+	}
 	
 }

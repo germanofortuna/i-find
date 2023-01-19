@@ -19,14 +19,11 @@ public class BookVO extends RepresentationModel<BookVO> implements Serializable{
 	@Mapping("id")
 	private Long key;
 	private String author;
-	@JsonProperty("launch_date")
 	private Date launchDate;
 	private Double price;
 	private String title;
 	
-	public BookVO() {
-		super();
-	}
+	public BookVO() {}
 
 	public Long getKey() {
 		return key;
@@ -89,6 +86,13 @@ public class BookVO extends RepresentationModel<BookVO> implements Serializable{
 				&& Objects.equals(launchDate, other.launchDate) && Objects.equals(price, other.price)
 				&& Objects.equals(title, other.title);
 	}
+
+	@Override
+	public String toString() {
+		return "BookVO [key=" + key + ", author=" + author + ", launchDate=" + launchDate + ", price=" + price
+				+ ", title=" + title + "]";
+	}
+	
 	
 	
 }

@@ -18,7 +18,7 @@ public class AccountCredentialsVO implements Serializable{
 		this.password = password;
 	}
 	
-	AccountCredentialsVO() {
+	public AccountCredentialsVO() {
 	}
 
 	public String getUsername() {

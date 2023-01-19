@@ -3,14 +3,11 @@ package br.com.ifind.integrationtests.controller.withxml;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 
 import br.com.ifind.configs.TestConfigs;
 import br.com.ifind.integrationtests.testcontainers.AbstractIntegrationTest;
@@ -48,7 +45,6 @@ private static TokenVO tokenVO;
 	@Test
 	@Order(2)
 	public void testRefresh() {
-		AccountCredentialsVO user = new AccountCredentialsVO("leandro", "admin123");
 		
 		var newTokenVO = given()
 				.basePath("/auth/refresh")

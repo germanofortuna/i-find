@@ -94,7 +94,7 @@ public class PersonController {
 	
 	@CrossOrigin(origins = {"http://localhost:8080", "https://erudio.com.br"}) //permite o acesso apenas para localhost:8080 e erudio.com.br
 	@PostMapping(
-			consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_YML },
+			consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML },
 			produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
 	@Operation(summary = "Adds a new person", description = "Adds a new person", 
 	tags = {"People"},
@@ -113,14 +113,14 @@ public class PersonController {
 	}
 
 	@PostMapping(value = "/v2",
-			consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_YML },
+			consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML },
 			produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
 	public PersonVOV2 createV2(@RequestBody PersonVOV2 person) throws Exception {
 		return service.createV2(person);
 	}
 
 	@PutMapping(
-			consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_YML },
+			consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML },
 			produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
 	@Operation(summary = "Updates a person", description = "Updates a person", 
 	tags = {"People"},

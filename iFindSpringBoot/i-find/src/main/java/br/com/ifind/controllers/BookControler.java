@@ -71,7 +71,7 @@ public class BookControler {
 	}
 	
 	@PostMapping(
-			consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_YML },
+			consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML },
 			produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
 	@Operation(summary = "Adds a new book", description = "Adds a new book", 
 	tags = {"Books"},
@@ -90,7 +90,7 @@ public class BookControler {
 	}
 	
 	@PutMapping(
-			consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_YML },
+			consumes = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML },
 			produces = { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML })
 	@Operation(summary = "Updates a book", description = "Updates a book", 
 	tags = {"Books"},

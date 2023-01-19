@@ -75,7 +75,6 @@ public class AuthControllerYmlTest extends AbstractIntegrationTest {
 	@Test
 	@Order(2)
 	public void testRefresh(){
-		AccountCredentialsVO user = new AccountCredentialsVO("leandro", "admin123");
 		
 		//spec feita para debugar
 		RequestSpecification specification = new RequestSpecBuilder()
