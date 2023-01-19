@@ -86,13 +86,4 @@ public class BookVO extends RepresentationModel<BookVO> implements Serializable{
 				&& Objects.equals(launchDate, other.launchDate) && Objects.equals(price, other.price)
 				&& Objects.equals(title, other.title);
 	}
-
-	@Override
-	public String toString() {
-		return "BookVO [key=" + key + ", author=" + author + ", launchDate=" + launchDate + ", price=" + price
-				+ ", title=" + title + "]";
-	}
-	
-	
-	
 }

@@ -2,22 +2,18 @@ package br.com.ifind.unittests.mapper;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-
-import br.com.ifind.unittests.mapper.mocks.MockBook;
-import br.com.ifind.unittests.mapper.mocks.MockPerson;
 import br.com.ifind.data.vo.v1.BookVO;
 import br.com.ifind.data.vo.v1.PersonVO;
 import br.com.ifind.mapper.DozerMapper;
 import br.com.ifind.model.Person;
+import br.com.ifind.unittests.mapper.mocks.MockBook;
+import br.com.ifind.unittests.mapper.mocks.MockPerson;
 
 public class DozerConverterTest {
     

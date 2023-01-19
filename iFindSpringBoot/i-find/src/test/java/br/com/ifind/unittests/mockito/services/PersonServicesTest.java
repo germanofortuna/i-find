@@ -1,4 +1,4 @@
-package br.com.ifind.unittests.mockito.services;
+ package br.com.ifind.unittests.mockito.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -84,8 +84,9 @@ class PersonServicesTest {
 		assertNotNull(result);
 		assertNotNull(result.getKey());
 		assertNotNull(result.getLinks());
-		assertTrue(result.toString().contains("links: [</api/person/v1/1>;rel=\"self\"]"));
 		
+		System.out.println(result.toString());
+		assertTrue(result.toString().contains("links: [</api/person/v1/1>;rel=\"self\"]"));
 		assertEquals("Addres Test1",result.getAddress());
 		assertEquals("First Name Test1",result.getFirstName());
 		assertEquals("Last Name Test1",result.getLastName());

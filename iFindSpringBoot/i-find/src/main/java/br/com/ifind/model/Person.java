@@ -22,18 +22,23 @@ public class Person implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //auto incremental
 	private Long id;
+	
 	@Column(name = "first_name", nullable = false, length = 80)
 	private String firstName;
+	
 	@Column(name = "last_name", nullable = false, length = 80)
 	private String lastName;
+	
 	@Column(nullable = false, length = 100)
 	private String address;
+	
 	@Column(nullable = false, length = 6)
 	private String gender;
 	
-	public Person() {
-		super();
-	}
+	@Column(nullable = false)
+	private Boolean enabled;
+	
+	public Person() {}
 
 	public String getFirstName() {
 		return firstName;
@@ -69,7 +74,7 @@ public class Person implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(address, firstName, gender, getId(), lastName);
+		return Objects.hash(address, getEnabled(), firstName, gender, id, lastName);
 	}
 
 	@Override
@@ -81,9 +86,9 @@ public class Person implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Person other = (Person) obj;
-		return Objects.equals(address, other.address) && Objects.equals(firstName, other.firstName)
-				&& Objects.equals(gender, other.gender) && Objects.equals(getId(), other.getId())
-				&& Objects.equals(lastName, other.lastName);
+		return Objects.equals(address, other.address) && Objects.equals(getEnabled(), other.getEnabled())
+				&& Objects.equals(firstName, other.firstName) && Objects.equals(gender, other.gender)
+				&& Objects.equals(id, other.id) && Objects.equals(lastName, other.lastName);
 	}
 
 	public Long getId() {
@@ -93,7 +98,12 @@ public class Person implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	
-	
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
 }

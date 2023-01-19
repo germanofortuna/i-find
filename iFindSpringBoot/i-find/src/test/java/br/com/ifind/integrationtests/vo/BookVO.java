@@ -107,10 +107,4 @@ public class BookVO implements Serializable{
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "BookVO [id=" + id + ", author=" + author + ", launchDate=" + launchDate + ", price=" + price
-				+ ", title=" + title + "]";
-	}
-	
 }

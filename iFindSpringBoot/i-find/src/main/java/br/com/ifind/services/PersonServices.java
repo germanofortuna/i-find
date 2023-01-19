@@ -19,6 +19,7 @@ import br.com.ifind.mapper.DozerMapper;
 import br.com.ifind.mapper.custom.PersonMapper;
 import br.com.ifind.model.Person;
 import br.com.ifind.repositories.PersonRepository;
+import jakarta.transaction.Transactional;
 
 //a anotação @Service serve para que o SpringBoot identifique a classe como um objecto que será 
 //injetado em RunTime nas outras classes da aplicação, substituindo o "new" da instanciação
@@ -57,6 +58,7 @@ public class PersonServices {
 				.orElseThrow(() -> new ResourceNotFoundException("No records found for this id"));
 		var vo = DozerMapper.parseObject(entity, PersonVO.class);
 		vo.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
+		logger.info("WOWOW " + vo.toString());
 		return vo;
 	}
 	
@@ -92,6 +94,25 @@ public class PersonServices {
 		
 		var vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
 		vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
+		return vo;
+	}
+	
+	/* como não é uma operação default do Spring, 
+	 * é necessário adicionar essa @, 
+	 * pois o repository foi customizado 
+	 * com uma query de update. Basicamente essa @ informa
+	 * ao Spring que todos os conceitos de transação (ACID) 
+	 * devem ser empregados nos beans que estejam anotados com @Transactional. */
+	@Transactional 
+	public PersonVO disablePerson(Long id) throws Exception {
+		logger.info("Disabling one person!");
+		
+		repository.disablePerson(id);
+		
+		var entity = repository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("No records found for this id"));
+		var vo = DozerMapper.parseObject(entity, PersonVO.class);
+		vo.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
 		return vo;
 	}
 
