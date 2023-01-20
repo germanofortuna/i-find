@@ -283,12 +283,12 @@ public class PersonControllerXmlTest extends AbstractIntegrationTest {
 		assertNotNull(foundPersonSix.getLastName());
 		assertNotNull(foundPersonSix.getAddress());
 		assertNotNull(foundPersonSix.getGender());
-		assertEquals(404, foundPersonSix.getId());
+		assertEquals(709, foundPersonSix.getId());
 		
-		assertEquals("Alister", foundPersonSix.getFirstName());
-		assertEquals("Etheridge", foundPersonSix.getLastName());
-		assertEquals("333 Lakewood Gardens Street", foundPersonSix.getAddress());
-		assertEquals("Male", foundPersonSix.getGender());
+		assertEquals("Alla", foundPersonSix.getFirstName());
+		assertEquals("Astall", foundPersonSix.getLastName());
+		assertEquals("72525 Emmet Alley", foundPersonSix.getAddress());
+		assertEquals("Female", foundPersonSix.getGender());
 		assertFalse(foundPersonSix.getEnabled());
 	}
 	
