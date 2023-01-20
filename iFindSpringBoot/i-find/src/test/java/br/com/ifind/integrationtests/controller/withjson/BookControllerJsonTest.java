@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Date;
-import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -16,7 +15,6 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,6 +24,7 @@ import br.com.ifind.data.vo.v1.security.AccountCredentialsVO;
 import br.com.ifind.integrationtests.testcontainers.AbstractIntegrationTest;
 import br.com.ifind.integrationtests.vo.BookVO;
 import br.com.ifind.integrationtests.vo.TokenVO;
+import br.com.ifind.integrationtests.vo.wrappers.WrapperBookVO;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.filter.log.RequestLoggingFilter;
@@ -183,38 +182,39 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
 
         var content = given().spec(specification)
                 .contentType(TestConfigs.CONTENT_TYPE_JSON)
-                    .queryParams("page", 0 , "limit", 5, "direction", "asc")
+                .queryParams("page", 1 , "limit", 3, "direction", "asc")
                     .when()
                     .get()
                 .then()
                     .statusCode(200)
                 .extract()
                     .body()
-                .asString();
+                    	.asString();
         
-        List<BookVO> books = objectMapper.readValue(content, new TypeReference<List<BookVO>>() {});
-		
+        WrapperBookVO wrapper = objectMapper.readValue(content, WrapperBookVO.class);
+        var books = wrapper.getEmbedded().getBooks();
+        
         BookVO foundBookOne = books.get(0);
         
         assertNotNull(foundBookOne.getId());
         assertNotNull(foundBookOne.getTitle());
         assertNotNull(foundBookOne.getAuthor());
         assertNotNull(foundBookOne.getPrice());
-        assertTrue(foundBookOne.getId() > 0);
-        assertEquals("Working effectively with legacy code", foundBookOne.getTitle());
-        assertEquals("Michael C. Feathers", foundBookOne.getAuthor());
-        assertEquals(49.00, foundBookOne.getPrice());
+        assertEquals(5, foundBookOne.getId());
+        assertEquals("Code complete", foundBookOne.getTitle());
+        assertEquals("Steve McConnell", foundBookOne.getAuthor());
+        assertEquals(58.0, foundBookOne.getPrice());
         
-        BookVO foundBookFive = books.get(4);
+        BookVO foundBookFive = books.get(2);
         
         assertNotNull(foundBookFive.getId());
         assertNotNull(foundBookFive.getTitle());
         assertNotNull(foundBookFive.getAuthor());
         assertNotNull(foundBookFive.getPrice());
-        assertTrue(foundBookFive.getId() > 0);
-        assertEquals("Code complete", foundBookFive.getTitle());
-        assertEquals("Steve McConnell", foundBookFive.getAuthor());
-        assertEquals(58.0, foundBookFive.getPrice());
+        assertEquals(5, foundBookOne.getId());
+        assertEquals("Big Data: como extrair volume, variedade, velocidade e valor da avalanche de informação cotidiana", foundBookFive.getTitle());
+        assertEquals("Viktor Mayer-Schonberger e Kenneth Kukier", foundBookFive.getAuthor());
+        assertEquals(54.0, foundBookFive.getPrice());
     }
      
     private void mockBook() {

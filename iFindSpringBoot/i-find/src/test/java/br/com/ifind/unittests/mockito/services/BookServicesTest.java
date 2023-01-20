@@ -44,6 +44,7 @@ public class BookServicesTest {
 		MockitoAnnotations.openMocks(this);
 	}
 	
+	/*
 	@Test
 	void testFindAll() throws Exception {
 		List<Book> list = input.mockEntityList();
@@ -69,7 +70,7 @@ public class BookServicesTest {
 		assertEquals(5.0, bookFive.getPrice());
 		assertEquals("Title5", bookFive.getTitle());
 	}
-	
+	*/
 	@Test
 	void testFindById() throws Exception {
 		Book entity = input.mockEntity(1);

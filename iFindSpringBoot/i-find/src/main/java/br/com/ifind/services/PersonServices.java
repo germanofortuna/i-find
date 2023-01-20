@@ -3,11 +3,14 @@ package br.com.ifind.services;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 
 import br.com.ifind.controllers.PersonController;
@@ -31,24 +34,61 @@ public class PersonServices {
 	
 	@Autowired
 	PersonRepository repository;
+
+	@Autowired
+	PagedResourcesAssembler<PersonVO> assembler;
 	
 	@Autowired
 	PersonMapper mapper;
 	
-	public List<PersonVO> findAll() {
+	public PagedModel<EntityModel<PersonVO>> findAll(Pageable pageable) {
 		logger.info("Searching All people!");
 		
-		var persons = DozerMapper.parseListObjects(repository.findAll(), PersonVO.class);
+		var personPage = repository.findAll(pageable);
 		
-		persons.stream().forEach(p -> {
+		var personsVosPage = personPage.map(p -> DozerMapper.parseObject(p, PersonVO.class));
+		
+		personsVosPage.map(p -> 
+				{
+					try {
+						return p.add(linkTo(methodOn(PersonController.class)
+								.findById(p.getKey())).withSelfRel());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					return p;
+				});
+		
+		Link link = linkTo(methodOn(PersonController.class)
+				.findAll(pageable.getPageNumber(), 
+						pageable.getPageSize(), 
+						"asc")).withSelfRel();
+		return assembler.toModel(personsVosPage, link);
+	}
+
+	public PagedModel<EntityModel<PersonVO>> findPersonsByName(String firstName, Pageable pageable) {
+		logger.info("Searching people by name!");
+		
+		var personPage = repository.findPersonsByName(firstName, pageable);
+		
+		var personsVosPage = personPage.map(p -> DozerMapper.parseObject(p, PersonVO.class));
+		
+		personsVosPage.map(p -> 
+		{
 			try {
-				p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel());
+				return p.add(linkTo(methodOn(PersonController.class)
+						.findById(p.getKey())).withSelfRel());
 			} catch (Exception e) {
-				logger.log(Level.SEVERE, "Error trying to iterate persons list");
+				e.printStackTrace();
 			}
+			return p;
 		});
 		
-		return persons;
+		Link link = linkTo(methodOn(PersonController.class)
+				.findAll(pageable.getPageNumber(), 
+						pageable.getPageSize(), 
+						"asc")).withSelfRel();
+		return assembler.toModel(personsVosPage, link);
 	}
 
 	public PersonVO findById(Long id) throws Exception {
