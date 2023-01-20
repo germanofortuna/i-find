@@ -35,9 +35,9 @@ jobs:
 
     - name: Push to Docker Hub Container Registry
       run: |
-        docker tag {{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:latest {{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:${{ github.run_id }}
-        docker push {{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:${{ github.run_id }}
-        docker push {{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:latest
+        docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:latest ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:${{ github.run_id }}
+        docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:${{ github.run_id }}
+        docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:latest
     
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
