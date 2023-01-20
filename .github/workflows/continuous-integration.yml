@@ -26,7 +26,7 @@ jobs:
         cache: maven
         
     - name: Build Application JAR
-      working-directory: ./i-find
+      working-directory: ./iFindSpringBoot/i-find
       run: mvn clean package
       
     - name: Docker Compose Build
