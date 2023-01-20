@@ -191,5 +191,17 @@ public class PersonControllerCorsJsonTest extends AbstractIntegrationTest {
 		person.setGender("Male");
 		person.setEnabled(true);
 	}
-
+	
+	@Test
+	@Order(5)
+	public void testDelete() {
+		
+		given().spec(specification)
+			.contentType(TestConfigs.CONTENT_TYPE_JSON)
+			.pathParam("id", person.getId())
+			.when()
+			.delete("{id}")
+		.then()
+			.statusCode(204);
+	}
 }
