@@ -46,6 +46,7 @@ jobs:
 
     - name: Tag, and push image to Amazon ECR
       run: |
+        eval $(aws ecr get-login | sed 's|https://||')
         docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:latest ${{ secrets.IMAGE_REPO_URL }}:${{ github.run_id }}
         docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:latest ${{ secrets.IMAGE_REPO_URL }}:latest
 
