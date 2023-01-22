@@ -3,7 +3,7 @@ name: Continuous Integration with Github Actions
 on:
   push:
     branches: 
-      - main      
+      - main
 jobs:
   build:
 
@@ -52,12 +52,6 @@ jobs:
         docker push ${{ secrets.IMAGE_REPO_URL }}:${{ github.run_id }}
         docker push ${{ secrets.IMAGE_REPO_URL }}:latest
     
-    - name: Push to Docker Hub Container Registry
-      run: |
-        docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:latest ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:${{ github.run_id }}
-        docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:${{ github.run_id }}
-        docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:latest
-    
     - name: Download task definition
       run: |
         aws ecs describe-task-definition --task-definition ${{ secrets.TASK_DEFINITION_NAME }} --query taskDefinition > task-definition.json
@@ -84,4 +78,3 @@ jobs:
 
         docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:${{ github.run_id }}
         docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:latest
-
