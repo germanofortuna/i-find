@@ -41,7 +41,7 @@ jobs:
       run: mvn clean package
       
     - name: Docker Compose Build
-      working-directory: ./iFindSpringBoot
+      working-directory: ./iFindSpringBoot/i-find
       run: docker compose build
     
     - name: Tag, and push image to Amazon ECR
@@ -54,10 +54,7 @@ jobs:
     
     - name: Push to Docker Hub Container Registry
       run: |
-        docker tag {{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:latest {{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:${{ github.run_id }}
-        docker push {{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:${{ github.run_id }}
-        docker push {{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:latest
+        docker tag ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:latest ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:${{ github.run_id }}
+        docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:${{ github.run_id }}
+        docker push ${{ secrets.DOCKER_USERNAME }}/rest-with-spring-boot-ifind:latest
     
-    # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
-    - name: Update dependency graph
-      uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
